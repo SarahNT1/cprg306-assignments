@@ -8,7 +8,7 @@ export default function StudentInfo()
                 Sarah Tenebro
             </div>
             <div>
-                <Link href="https://github.com/SarahNT1">
+                <Link href="https://github.com/SarahNT1?tab=repositories">
                     GitHub
                 </Link>
             </div>
