@@ -30,7 +30,7 @@ export default function NewItem()
 
     return(
         <div className="flex justify-center">
-            <form className="p-2 m-4 bg-slate-900 text-black max-w-sm w-full">
+            <form className="p-2 m-4 bg-slate-950 text-black max-w-sm w-full">
                 <div className="">
                     <input required className="mb-2 w-full p-2 mt-1 rounded-lg" placeholder="Item Name"type="text" value={name} onChange={(event)=>setName(event.target.value)}></input>  
                 </div>
