@@ -44,11 +44,11 @@ export default function ItemList()
 
       return(
         <div>
-            <div>
+            <div className="text-white pl-4 pt-2 mb-10">
                 Sort by:
                 {
                 sortBy == "name" ? 
-                <button className="bg-orange-500 p-1 m-2 w-28" title="name" onClick={sortByName}>Name</button> 
+                <button className="bg-orange-500 p-1 m-2 w-28 ml-3" title="name" onClick={sortByName}>Name</button> 
                 : <button className="bg-orange-700 p-1 m-2 w-28" title="name" onClick={sortByName}>Name</button>
                 }
 
@@ -61,7 +61,7 @@ export default function ItemList()
             
             <div>
                 {sortedItems.map((item) => {return(
-                    <div>
+                    <div className="m-4">
                         <div key = {item.id}>
                             <Item {...item}/>
                         </div>
