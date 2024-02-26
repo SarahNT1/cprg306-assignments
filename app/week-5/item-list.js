@@ -15,10 +15,25 @@ export default function ItemList()
     {
         setSortBy("category");
     }
+    const sortByGrouped =()=>
+    {
+        setSortBy("grouped");
+    }
 
     const sortedItems = items.sort((a, b) => {
-        const item1 = a[sortBy];
-        const item2 = b[sortBy];
+        let item1;
+        let item2;
+        if(sortBy == "grouped")
+        {
+            item1 = a.category;
+            item2 = b.category;
+
+        }
+        else
+        {
+            item1 = a[sortBy];
+            item2 = b[sortBy];
+        }
 
         if(item1 < item2)
         {
@@ -48,26 +63,76 @@ export default function ItemList()
                 Sort by:
                 {
                 sortBy == "name" ? 
-                <button className="bg-orange-500 p-1 m-2 w-28 ml-3" title="name" onClick={sortByName}>Name</button> 
-                : <button className="bg-orange-700 p-1 m-2 w-28" title="name" onClick={sortByName}>Name</button>
+                <button className="bg-orange-500 p-1 ml-5 w-28" title="name" onClick={sortByName}>Name</button> 
+                : <button className="bg-orange-700 p-1 ml-2 w-28" title="name" onClick={sortByName}>Name</button>
                 }
 
                 {
                 sortBy == "category" ?
-                <button className="bg-orange-500 p-1 m-2 w-28" title="category" onClick={sortByCategory}>Category</button>
-                : <button className="bg-orange-700 p-1 m-2 w-28" title="category" onClick={sortByCategory}>Category</button>
+                <button className="bg-orange-500 ml-2 p-1 w-28" title="category" onClick={sortByCategory}>Category</button>
+                : <button className="bg-orange-700 ml-2 p-1 w-28" title="category" onClick={sortByCategory}>Category</button>
+                }
+
+                {
+                sortBy == "grouped" ?
+                <button className="bg-orange-500 ml-2 p-1 w-28" title="grouped" onClick={sortByGrouped}>Grouped Category</button>
+                : <button className="bg-orange-700 ml-2 p-1 w-28" title="grouped" onClick={sortByGrouped}>Grouped Category</button>
                 }
             </div>
             
-            <div>
+            {sortBy == "name" && (
+                <div>
                 {sortedItems.map((item) => {return(
                     <div className="m-4">
                         <div key = {item.id}>
                             <Item {...item}/>
                         </div>
                     </div>
-                )})}
-            </div>
+                    )})}
+                </div>
+            )}
+            
+            {sortBy == "category" && (
+                <div>
+                {sortedItems.map((item) => {return(
+                    <div className="m-4">
+                        <div key = {item.id}>
+                            <Item {...item}/>
+                        </div>
+                    </div>
+                    )})}
+                </div>
+            )}
+            
+            {sortBy == "grouped" && (
+                <div>
+                    {Object.entries(sortedItems.reduce((acc, item) => 
+                    {
+                        if(acc[item.category])
+                        {
+                            acc[item.category].push(item);
+                        }
+                        else
+                        {
+                            acc[item.category] = [item];
+                        }
+                        return acc;
+                    }, {})).map(([category, items]) => {return(
+                        <div>
+                            <div className="ml-8 text-xl transform-text: capitalize">
+                                {category}
+                            </div>
+                            {items.map(item => (
+                                <div className="m-4">
+                                    <div key={item.id}>
+                                        <Item {...item}/>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )})}
+                </div>
+            )}
 
             {/* {sortBy == "name" && (
                 <div>
